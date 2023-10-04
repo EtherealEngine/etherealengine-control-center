@@ -28,3 +28,5 @@ npm-debug.log.*
 *.scss.d.ts
 package-lock.json
 local.values.yaml
+
+inspection-report-*

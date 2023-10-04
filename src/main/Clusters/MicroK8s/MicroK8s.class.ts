@@ -130,6 +130,8 @@ class MicroK8s {
       let configFile = 'configure-microk8s-linux.sh'
       if (type === 'Windows_NT') {
         configFile = 'configure-microk8s-windows.ps1'
+      } else if (type === 'Darwin') {
+        configFile = 'configure-microk8s-macos.sh'
       }
 
       const configureScript = path.join(scriptsFolder, configFile)

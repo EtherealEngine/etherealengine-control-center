@@ -20,7 +20,7 @@ else
     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
     echo "$PASSWORD" | sudo -S chmod 700 get_helm.sh
     echo "$PASSWORD" | sudo -S bash get_helm.sh
-    rm get_helm.sh -f
+    rm -f get_helm.sh
 fi
 
 HELM_VERSION=$(helm version)

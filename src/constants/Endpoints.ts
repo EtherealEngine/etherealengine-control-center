@@ -23,6 +23,8 @@ const Endpoints = {
       'https://raw.githubusercontent.com/etherealengine/etherealengine-control-center/master/assets/scripts/configure-minikube-linux.sh',
     MICROK8S_LINUX_SCRIPT:
       'https://raw.githubusercontent.com/etherealengine/etherealengine-control-center/master/assets/scripts/configure-microk8s-linux.sh',
+    MICROK8S_MACOS_SCRIPT:
+      'https://raw.githubusercontent.com/etherealengine/etherealengine-control-center/master/assets/scripts/configure-microk8s-macos.sh',
     MICROK8S_WINDOWS_SCRIPT:
       'https://raw.githubusercontent.com/etherealengine/etherealengine-control-center/master/assets/scripts/configure-microk8s-windows.ps1',
     MINIKUBE_VALUES_TEMPLATE:

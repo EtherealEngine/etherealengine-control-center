@@ -28,7 +28,11 @@ export const MicroK8sAppsStatus = (sudoPassword?: string): AppModel[] => {
   }
 
   if (sudoPassword) {
-    microk8sPrefix = `echo '${sudoPassword}' | sudo -S ${microk8sPrefix}`
+    if (type === 'Darwin') {
+      microk8sPrefix = `echo '${sudoPassword}'`
+    } else {
+      microk8sPrefix = `echo '${sudoPassword}' | sudo -S ${microk8sPrefix}`
+    }
   }
 
   const appStatus = [
@@ -94,7 +98,22 @@ export const MicroK8sAppsStatus = (sudoPassword?: string): AppModel[] => {
         }
         `
         : microk8sDependantScript(
+            type === 'Darwin'
+              ? `
+              if grep 'local.etherealengine.org' /etc/hosts; then
+                  if grep '127.0.0.1 local.etherealengine.org' /etc/hosts; then
+                      echo '*.etherealengine.org entries exists'
+                      exit 0;
+                  else
+                    echo '*.etherealengine.org entries outdated';
+                    exit 1;
+                  fi
+              else
+                echo '*.etherealengine.org entries does not exist';
+                exit 1;
+              fi
             `
+              : `
         if grep -q 'local.etherealengine.org' /etc/hosts; then
             if grep -q '127.0.0.1 local.etherealengine.org' /etc/hosts; then
                 echo '*.etherealengine.org entries exists'
