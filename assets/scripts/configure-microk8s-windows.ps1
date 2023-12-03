@@ -132,9 +132,18 @@ else {
 # WSL Login
 #==========
 
-wsl bash -ic "`"$SCRIPTS_FOLDER/check-login.sh`" `"$PASSWORD`"";
+$checkLoginScript = "$SCRIPTS_FOLDER/check-login.sh"
+$checkLoginScriptPath = "`"$checkLoginScript`" `"$PASSWORD`""
 
-checkExitCode;
+$loginStatus = wsl bash -ic "$checkLoginScriptPath"
+
+if ($loginStatus -like '*User logged in*') {
+    Write-Host "User logged in"
+}
+else {
+    Write-Host "User not logged in"
+    exit 1
+}
 
 #======================
 # Enable systemd in WSL
