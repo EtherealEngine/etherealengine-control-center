@@ -13,10 +13,16 @@ CLUSTER_ID=$4
 CLUSTER_TYPE=$5
 OPS_FOLDER=$6
 TAG=$7
+RUN_IN_DEVELOPMENT=$8
 
 #=======================
 # Verify Ethereal Engine
 #=======================
+ if [[ "$RUN_IN_DEVELOPMENT" == 'true' ]]; then
+         APP_ENV=development
+    else
+         APP_ENV=production
+   fi
 
 cd "$ENGINE_FOLDER" || exit
 
@@ -68,7 +74,7 @@ export COMPOSE_DOCKER_CLI_BUILD=0
 if [[ $CLUSTER_TYPE == 'microk8s' ]]; then
     set +e
 
-    bash ./scripts/build_microk8s.sh "$TAG" true
+    bash ./scripts/build_microk8s.sh "$TAG" true "$APP_ENV"
 
     exit_status=$?
     if [ "$exit_status" -ne 0 ]; then
@@ -87,7 +93,7 @@ elif [[ $CLUSTER_TYPE == 'microk8sWindows' ]]; then
     while [ "$retry" -le 6 ]; do
         echo "Trying: $retry"
 
-        bash ./scripts/build_microk8s.sh "$TAG" true
+        bash ./scripts/build_microk8s.sh "$TAG" true "$APP_ENV"
 
         exit_status=$?
         if [ $exit_status -eq 0 ]; then

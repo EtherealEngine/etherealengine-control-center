@@ -61,6 +61,9 @@ for ( $i = 0; $i -lt $args.count; $i += 2 ) {
     elseif ($args[$i] -eq "-r") {
         $ENABLE_RIPPLE_STACK = $args[$i + 1]
     }
+    elseif ($args[$i] -eq "-u") {
+        $RUN_IN_DEVELOPMENT = $args[$i + 1]
+    }
     else {
         throw "Invalid argument passed"
         exit 1
@@ -74,7 +77,8 @@ if ([string]::IsNullOrEmpty($ASSETS_FOLDER) -or
     [string]::IsNullOrEmpty($CLUSTER_ID) -or 
     [string]::IsNullOrEmpty($OPS_FOLDER) -or 
     [string]::IsNullOrEmpty($PASSWORD) -or 
-    [string]::IsNullOrEmpty($ENABLE_RIPPLE_STACK)) {
+    [string]::IsNullOrEmpty($ENABLE_RIPPLE_STACK) -or
+    [string]::IsNullOrEmpty($RUN_IN_DEVELOPMENT)) {
     throw "Missing arguments"
     exit 1
 }
@@ -88,6 +92,7 @@ Write-Host "Engine Folder: $ENGINE_FOLDER";
 Write-Host "OPS Folder: $OPS_FOLDER";
 Write-Host "Configs Folder: $CONFIGS_FOLDER";
 Write-Host "Assets Folder: $ASSETS_FOLDER";
+Write-Host "Force DB Refresh: $RUN_IN_DEVELOPMENT";
 
 #==============
 # Prerequisites
@@ -412,7 +417,7 @@ Write-Host "Tag is $TAG";
 # Verify Ethereal Engine
 #=======================
 
-wsl bash -ic "`"$SCRIPTS_FOLDER/check-engine-deployment.sh`" `"$ENGINE_FOLDER`" `"$FORCE_DB_REFRESH`" `"$CONFIGS_FOLDER`" `"$CLUSTER_ID`" `"microk8sWindows`" `"$OPS_FOLDER`" `"$TAG`"";
+wsl bash -ic "`"$SCRIPTS_FOLDER/check-engine-deployment.sh`" `"$ENGINE_FOLDER`" `"$FORCE_DB_REFRESH`" `"$CONFIGS_FOLDER`" `"$CLUSTER_ID`" `"microk8sWindows`" `"$OPS_FOLDER`" `"$TAG`" `"$RUN_IN_DEVELOPMENT`"";
 
 checkExitCode;
 

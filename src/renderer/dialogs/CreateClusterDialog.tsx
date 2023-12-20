@@ -43,6 +43,7 @@ import KubeconfigView from '../components/Config/KubeconfigView'
 import PrereqsView from '../components/Config/PrereqsView'
 import SummaryView from '../components/Config/SummaryView'
 import VarsView from '../components/Config/VarsView'
+import RunDevView from 'renderer/components/Config/RunDevView'
 
 const ColorlibStepIcon = (props: StepIconProps) => {
   const { active, completed, className } = props
@@ -115,7 +116,7 @@ const CreateClusterDialog = ({ onClose }: Props) => {
     setState((state) => ({
       ...state,
       defaultConfigs: configs,
-      localFlags: { [Storage.FORCE_DB_REFRESH]: 'false' },
+      localFlags: { [Storage.FORCE_DB_REFRESH]: 'false', [Storage.RUN_IN_DEVELOPMENT]: 'false' },
       isLoading: false
     }))
   }
@@ -276,6 +277,7 @@ const CreateClusterDialog = ({ onClose }: Props) => {
         <Box sx={{ marginLeft: 2, marginRight: 2 }}>
           <ConfigsView localConfigs={localConfigs} onChange={onChangeConfig} />
           <FlagsView localFlags={localFlags} onChange={onChangeFlag} />
+          <RunDevView localFlags={localFlags} onChange={onChangeFlag}/>
         </Box>
       )
     })

@@ -36,6 +36,7 @@ import ConfigsView from '../components/Config/ConfigsView'
 import FlagsView from '../components/Config/FlagsView'
 import SummaryView from '../components/Config/SummaryView'
 import VarsView from '../components/Config/VarsView'
+import RunDevView from 'renderer/components/Config/RunDevView'
 
 const ColorlibStepIcon = (props: StepIconProps) => {
   const { active, completed, className } = props
@@ -76,7 +77,7 @@ const ConfigurationDialog = ({ onClose }: Props) => {
   })
   const [tempConfigs, setTempConfigs] = useState({} as Record<string, string>)
   const [tempVars, setTempVars] = useState({} as Record<string, string>)
-  const [localFlags, setLocalFlags] = useState({ [Storage.FORCE_DB_REFRESH]: 'false' } as Record<string, string>)
+  const [localFlags, setLocalFlags] = useState({ [Storage.FORCE_DB_REFRESH]: 'false', [Storage.RUN_IN_DEVELOPMENT]: 'false' } as Record<string, string>)
 
   if (!selectedCluster) {
     enqueueSnackbar('Please select a cluster.', { variant: 'error' })
@@ -187,6 +188,7 @@ const ConfigurationDialog = ({ onClose }: Props) => {
         <Box sx={{ marginLeft: 2, marginRight: 2 }}>
           <ConfigsView localConfigs={localConfigs} onChange={onChangeConfig} />
           <FlagsView localFlags={localFlags} onChange={onChangeFlag} />
+          <RunDevView localFlags={localFlags} onChange={onChangeFlag}/>
         </Box>
       )
     },

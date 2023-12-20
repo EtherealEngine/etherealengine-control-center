@@ -15,7 +15,7 @@ checkExitCode() {
 # Parameters
 #===========
 
-while getopts a:c:d:f:i:o:p:r: flag; do
+while getopts a:c:d:f:i:o:p:r:u: flag; do
     case "${flag}" in
     a) ASSETS_FOLDER=${OPTARG} ;;
     c) CONFIGS_FOLDER=${OPTARG} ;;
@@ -25,6 +25,7 @@ while getopts a:c:d:f:i:o:p:r: flag; do
     o) OPS_FOLDER=${OPTARG} ;;
     p) PASSWORD=${OPTARG} ;;
     r) ENABLE_RIPPLE_STACK=${OPTARG} ;;
+    u) RUN_IN_DEVELOPMENT=${OPTARG} ;;
     *)
         echo "Invalid argument passed" >&2
         exit 1
@@ -32,7 +33,7 @@ while getopts a:c:d:f:i:o:p:r: flag; do
     esac
 done
 
-if [[ -z $ASSETS_FOLDER || -z $CONFIGS_FOLDER || -z $FORCE_DB_REFRESH || -z $ENGINE_FOLDER || -z $CLUSTER_ID || -z $OPS_FOLDER || -z $ENABLE_RIPPLE_STACK ]]; then
+if [[ -z $ASSETS_FOLDER || -z $CONFIGS_FOLDER || -z $FORCE_DB_REFRESH || -z $ENGINE_FOLDER || -z $CLUSTER_ID || -z $OPS_FOLDER || -z $ENABLE_RIPPLE_STACK || -z $RUN_IN_DEVELOPMENT ]]; then
     # Allow empty passwords
     echo "Missing arguments"
     exit 1
@@ -47,6 +48,7 @@ echo "Engine Folder: ${ENGINE_FOLDER}"
 echo "OPS Folder: ${OPS_FOLDER}"
 echo "Assets Folder: ${ASSETS_FOLDER}"
 echo "Configs Folder: ${CONFIGS_FOLDER}"
+echo "Run In development: ${RUN_IN_DEVELOPMENT}"
 
 #================================
 # Set script directory as current
@@ -295,7 +297,7 @@ checkExitCode
 # Verify Ethereal Engine
 #=======================
 
-bash "$SCRIPTS_FOLDER/check-engine-deployment.sh" "$ENGINE_FOLDER" "$FORCE_DB_REFRESH" "$CONFIGS_FOLDER" "$CLUSTER_ID" "microk8s" "$OPS_FOLDER" "$TAG"
+bash "$SCRIPTS_FOLDER/check-engine-deployment.sh" "$ENGINE_FOLDER" "$FORCE_DB_REFRESH" "$CONFIGS_FOLDER" "$CLUSTER_ID" "microk8s" "$OPS_FOLDER" "$TAG" "$RUN_IN_DEVELOPMENT"
 
 checkExitCode
 

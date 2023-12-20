@@ -148,7 +148,8 @@ class MicroK8s {
           `-i "${cluster.id}"`,
           `-o "${cluster.configs[Storage.OPS_PATH]}"`,
           `-p "${password}"`,
-          `-r "${cluster.configs[Storage.ENABLE_RIPPLE_STACK]}"`
+          `-r "${cluster.configs[Storage.ENABLE_RIPPLE_STACK]}"`,
+          `-u "${flags[Storage.RUN_IN_DEVELOPMENT]}"`
         ],
         onConfigureStd,
         onConfigureStd
