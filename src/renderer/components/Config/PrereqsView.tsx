@@ -55,7 +55,7 @@ const PrereqsView = ({ sx }: Props) => {
   }
 
   const processDescriptions = (status: AppModel) => {
-    if (status.id === 'wsl' || status.id === 'wslUbuntu') {
+    if (status.id === 'wsl' || status.id === 'wslUbuntu' || status.id === 'wslUbuntuStore') {
       status.description = (
         <Typography fontSize={14}>
           <span style={{ fontSize: 14, opacity: 0.6 }}>
@@ -82,6 +82,15 @@ const PrereqsView = ({ sx }: Props) => {
               </span>
               <br />
               <code>wsl -s Ubuntu</code>
+            </>
+          )}{' '}
+          {status.id === 'wslUbuntuStore' && (
+            <>
+              <br />
+              <br />
+              <span style={{ fontSize: 14, opacity: 0.6 }}>
+                To install the Ubuntu distribution from the Windows Store, you can refer to docs above
+              </span>
             </>
           )}
         </Typography>

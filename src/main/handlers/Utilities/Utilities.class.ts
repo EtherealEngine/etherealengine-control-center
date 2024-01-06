@@ -103,7 +103,7 @@ class Utilities {
         return WindowsPrerequisites
       }
     } catch (err) {
-      log.error('Failed to get pre requisites.', err)
+      log.error('Failed to get prerequisites.', err)
     }
 
     return []
@@ -120,7 +120,7 @@ class Utilities {
 
       if (error || stderr) {
         log.error(
-          `Error while executing check ${prerequisite.name} command: ${prerequisite.checkCommand}.`,
+          `Error while executing the check ${prerequisite.name} command: ${prerequisite.checkCommand}.`,
           error,
           stderr
         )
@@ -129,6 +129,7 @@ class Utilities {
       if (
         (prerequisite.id === 'wsl' && stdOutput) ||
         (prerequisite.id === 'wslUbuntu' && stdOutput.includes(': Ubuntu')) ||
+        (prerequisite.id === 'wslUbuntuStore' && stdOutput) ||
         ((prerequisite.id === 'dockerDesktop' || prerequisite.id === 'dockerDesktopUbuntu') &&
           stdOutput.includes('Server: Docker Desktop')) ||
         (prerequisite.id === 'hostname' && !stdOutput.match(/[A-Z_]/))
